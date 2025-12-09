@@ -255,7 +255,7 @@
                     return;
                 }
 
-                const maxFileSize = 8 * 1024 * 1024;
+                const maxFileSize = 50 * 1024 * 1024;
 
                 if (dokumentFile && dokumentFile.files && dokumentFile.files[0]) {
                     const fileSize = dokumentFile.files[0].size;
@@ -264,7 +264,7 @@
                     console.log('Dokument file size:', fileSizeMB + ' MB');
 
                     if (fileSize > maxFileSize) {
-                        showToast(`Dokument je prevelik (${fileSizeMB} MB). Maksimalna veličina je 8 MB. Molimo povećajte PHP limite ili smanjite veličinu fajla.`, 'error');
+                        showToast(`Dokument je prevelik (${fileSizeMB} MB). Maksimalna veličina je 50 MB. Molimo povećajte PHP limite ili smanjite veličinu fajla.`, 'error');
                         return;
                     }
                 }
@@ -276,7 +276,7 @@
                     console.log('Potvrda file size:', fileSizeMB + ' MB');
 
                     if (fileSize > maxFileSize) {
-                        showToast(`Potvrda je prevelika (${fileSizeMB} MB). Maksimalna veličina je 8 MB. Molimo povećajte PHP limite ili smanjite veličinu fajla.`, 'error');
+                        showToast(`Potvrda je prevelika (${fileSizeMB} MB). Maksimalna veličina je 50 MB. Molimo povećajte PHP limite ili smanjite veličinu fajla.`, 'error');
                         return;
                     }
                 }
