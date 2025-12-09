@@ -729,23 +729,55 @@ window.exportSingleZaprimanje = function(zaprimanjeId) {
 };
 
 window.showMessage = function(message, type = 'success', duration = 5000) {
-    let messageEl = document.querySelector('.seup-message-toast');
-    if (!messageEl) {
-        messageEl = document.createElement('div');
-        messageEl.className = 'seup-message-toast';
-        document.body.appendChild(messageEl);
+    let toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        toastContainer.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999;';
+        document.body.appendChild(toastContainer);
     }
 
-    messageEl.className = `seup-message-toast seup-message-${type} show`;
-    messageEl.innerHTML = `
-        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
-        ${message}
+    const toast = document.createElement('div');
+    toast.className = `toast-notification toast-${type}`;
+    toast.style.cssText = `
+        background: ${type === 'success' ? '#10b981' : '#ef4444'};
+        color: white;
+        padding: 16px 24px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 300px;
+        animation: slideIn 0.3s ease-out;
     `;
 
+    const icon = type === 'success'
+        ? '<i class="fas fa-check-circle" style="font-size: 20px;"></i>'
+        : '<i class="fas fa-exclamation-circle" style="font-size: 20px;"></i>';
+
+    toast.innerHTML = `${icon}<span>${message}</span>`;
+    toastContainer.appendChild(toast);
+
     setTimeout(() => {
-        messageEl.classList.remove('show');
+        toast.style.animation = 'slideOut 0.3s ease-in';
+        setTimeout(() => toast.remove(), 300);
     }, duration);
 };
+
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(400px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(400px); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
 
 document.addEventListener("DOMContentLoaded", function() {
     const searchInput = document.getElementById('searchInput');

@@ -1,6 +1,57 @@
 (function() {
     'use strict';
 
+    function showToast(message, type = 'success') {
+        let toastContainer = document.getElementById('toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'toast-container';
+            toastContainer.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 9999;';
+            document.body.appendChild(toastContainer);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast-notification toast-${type}`;
+        toast.style.cssText = `
+            background: ${type === 'success' ? '#10b981' : '#ef4444'};
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        `;
+
+        const icon = type === 'success'
+            ? '<i class="fas fa-check-circle" style="font-size: 20px;"></i>'
+            : '<i class="fas fa-exclamation-circle" style="font-size: 20px;"></i>';
+
+        toast.innerHTML = `${icon}<span>${message}</span>`;
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.animation = 'slideOut 0.3s ease-in';
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
+    }
+
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+
     function initZaprimanja() {
         let posiljateljAutocompleteTimeout;
         let selectedPosiljatelj = null;
@@ -203,58 +254,47 @@
                 submitZaprimanjeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Zaprimanje...';
 
                 const formData = new FormData(form);
-                formData.append('action', 'create_zaprimanje');
                 console.log('FormData created');
+                console.log('Action:', formData.get('action'));
 
                 fetch(window.location.href, {
                     method: 'POST',
                     body: formData
                 })
-                .then(response => response.json())
-                .then(data => {
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    console.log('Response headers:', response.headers.get('Content-Type'));
+                    return response.text();
+                })
+                .then(text => {
+                    console.log('Response text:', text);
+                    let data;
+                    try {
+                        data = JSON.parse(text);
+                    } catch (e) {
+                        console.error('JSON parse error:', e);
+                        throw new Error('Server vratio neispravan odgovor');
+                    }
+
                     if (data.success) {
-                        showMessage('Dokument uspješno zaprimljen!', 'success');
+                        showToast('Dokument uspješno zaprimljen!', 'success');
                         closeModal();
                         setTimeout(function() {
                             location.reload();
                         }, 1000);
                     } else {
-                        showMessage('Greška: ' + (data.error || 'Nepoznata greška'), 'error');
+                        showToast('Greška: ' + (data.error || 'Nepoznata greška'), 'error');
                         submitZaprimanjeBtn.disabled = false;
                         submitZaprimanjeBtn.innerHTML = originalText;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showMessage('Greška pri zaprimanju dokumenta', 'error');
+                    showToast('Greška pri zaprimanju dokumenta: ' + error.message, 'error');
                     submitZaprimanjeBtn.disabled = false;
                     submitZaprimanjeBtn.innerHTML = originalText;
                 });
             });
-        }
-
-        function showMessage(message, type) {
-            const existingMessage = document.querySelector('.seup-message');
-            if (existingMessage) {
-                existingMessage.remove();
-            }
-
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'seup-message seup-message-' + type;
-            messageDiv.innerHTML = '<i class="fas fa-' + (type === 'success' ? 'check-circle' : 'exclamation-circle') + '"></i> ' + message;
-
-            document.body.appendChild(messageDiv);
-
-            setTimeout(function() {
-                messageDiv.classList.add('show');
-            }, 10);
-
-            setTimeout(function() {
-                messageDiv.classList.remove('show');
-                setTimeout(function() {
-                    messageDiv.remove();
-                }, 300);
-            }, 3000);
         }
     }
 
