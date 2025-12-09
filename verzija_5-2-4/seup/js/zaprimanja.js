@@ -1,11 +1,9 @@
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
     let posiljateljAutocompleteTimeout;
     let selectedPosiljatelj = null;
 
-    // ✅ IMPORTANT: Don't use DOMContentLoaded because this script loads AFTER DOM is ready
-    // The script is included via printScripts() which is called after llxFooter()
     console.log('Zaprimanja.js loaded');
 
     const zaprimiBtn = document.getElementById('zaprimiDokumentBtn');
@@ -257,4 +255,4 @@
         }, 3000);
     }
 
-})();
+});
