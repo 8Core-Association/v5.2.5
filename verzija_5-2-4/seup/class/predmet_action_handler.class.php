@@ -621,18 +621,25 @@ class Predmet_Action_Handler
 
     public static function handleRegistrirajZaprimanje($db, $conf, $user, $caseId)
     {
-        @ob_end_clean();
-        header('Content-Type: application/json');
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
         ob_start();
 
-        require_once __DIR__ . '/zaprimanje_helper.class.php';
-
         try {
+            require_once __DIR__ . '/zaprimanje_helper.class.php';
+
+            error_log('=== ZAPRIMANJE START ===');
+            error_log('Files: ' . print_r($_FILES, true));
+            error_log('Post: ' . print_r($_POST, true));
+
             Zaprimanje_Helper::ensureZaprimanjaTable($db);
             Zaprimanje_Helper::ensurePotvrdaColumn($db);
 
             if (!isset($_FILES['dokument_file']) || $_FILES['dokument_file']['error'] !== UPLOAD_ERR_OK) {
-                throw new Exception('Dokument nije uploadan');
+                $error = isset($_FILES['dokument_file']) ? $_FILES['dokument_file']['error'] : 'no file';
+                throw new Exception('Dokument nije uploadan (error: ' . $error . ')');
             }
 
             $tip_dokumenta = GETPOST('tip_dokumenta', 'alpha');
@@ -641,6 +648,10 @@ class Predmet_Action_Handler
             $datum_zaprimanja = GETPOST('datum_zaprimanja', 'alpha');
             $nacin_zaprimanja = GETPOST('nacin_zaprimanja', 'alpha');
             $napomena = GETPOST('napomena', 'restricthtml');
+
+            error_log('tip_dokumenta: ' . $tip_dokumenta);
+            error_log('datum_zaprimanja: ' . $datum_zaprimanja);
+            error_log('nacin_zaprimanja: ' . $nacin_zaprimanja);
 
             if (!$tip_dokumenta || !$datum_zaprimanja || !$nacin_zaprimanja) {
                 throw new Exception('Nedostaju obavezna polja');
@@ -651,6 +662,8 @@ class Predmet_Action_Handler
             }
 
             $fk_ecm_file = Zaprimanje_Helper::uploadZaprimljenDokument($db, $conf, $_FILES['dokument_file'], $caseId);
+            error_log('fk_ecm_file: ' . $fk_ecm_file);
+
             if (!$fk_ecm_file) {
                 throw new Exception('Greška pri uploadu dokumenta');
             }
@@ -673,6 +686,8 @@ class Predmet_Action_Handler
                 $napomena
             );
 
+            error_log('zaprimanje_id: ' . $zaprimanje_id);
+
             if (!$zaprimanje_id) {
                 throw new Exception('Greška pri registraciji zaprimanja: ' . $db->lasterror());
             }
@@ -693,21 +708,47 @@ class Predmet_Action_Handler
                 }
             }
 
-            echo json_encode([
+            $response = [
                 'success' => true,
                 'zaprimanje_id' => $zaprimanje_id,
                 'message' => 'Dokument uspješno zaprimljen'
-            ]);
+            ];
+
+            error_log('Response: ' . json_encode($response));
+            error_log('=== ZAPRIMANJE END ===');
+
+            ob_end_clean();
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit;
 
         } catch (Exception $e) {
-            echo json_encode([
+            error_log('ZAPRIMANJE ERROR: ' . $e->getMessage());
+            error_log('Stack trace: ' . $e->getTraceAsString());
+
+            $response = [
                 'success' => false,
                 'error' => $e->getMessage()
-            ]);
-        }
+            ];
 
-        ob_end_flush();
-        exit;
+            ob_end_clean();
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit;
+        } catch (Error $e) {
+            error_log('ZAPRIMANJE FATAL ERROR: ' . $e->getMessage());
+            error_log('Stack trace: ' . $e->getTraceAsString());
+
+            $response = [
+                'success' => false,
+                'error' => 'Kritična greška: ' . $e->getMessage()
+            ];
+
+            ob_end_clean();
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit;
+        }
     }
 
     public static function handleSearchPosiljatelji($db)
