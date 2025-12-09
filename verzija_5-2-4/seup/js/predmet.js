@@ -58,8 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        if (file.size > 50 * 1024 * 1024) {
-            showMessage('Datoteka je prevelika (maksimalno 50MB)', 'error');
+        if (file.size > 150 * 1024 * 1024) {
+            showMessage('Datoteka je prevelika (maksimalno 150MB)', 'error');
             return;
         }
 
@@ -164,8 +164,8 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        if (file.size > 50 * 1024 * 1024) {
-            showMessage('Datoteka je prevelika (maksimalno 50MB)', 'error');
+        if (file.size > 150 * 1024 * 1024) {
+            showMessage('Datoteka je prevelika (maksimalno 150MB)', 'error');
             return;
         }
 

@@ -26,8 +26,8 @@ POST Content-Length of 9107465 bytes exceeds the limit of 8388608 bytes
 
 2. **Promijeni sljedeće postavke:**
    ```ini
-   upload_max_filesize = 50M
-   post_max_size = 50M
+   upload_max_filesize = 150M
+   post_max_size = 150M
    max_execution_time = 300
    max_input_time = 300
    memory_limit = 256M
@@ -57,8 +57,8 @@ POST Content-Length of 9107465 bytes exceeds the limit of 8388608 bytes
 Dodaj u root direktoriju `.htaccess` fajl:
 
 ```apache
-php_value upload_max_filesize 50M
-php_value post_max_size 50M
+php_value upload_max_filesize 150M
+php_value post_max_size 150M
 php_value max_execution_time 300
 php_value max_input_time 300
 php_value memory_limit 256M
@@ -71,7 +71,7 @@ php_value memory_limit 256M
 Dodaj u Nginx server block:
 
 ```nginx
-client_max_body_size 50M;
+client_max_body_size 150M;
 ```
 
 Primjer:
@@ -80,7 +80,7 @@ server {
     listen 80;
     server_name example.com;
 
-    client_max_body_size 50M;
+    client_max_body_size 150M;
 
     # ostale postavke...
 }
@@ -123,8 +123,8 @@ Sistem sada ima klijentsku validaciju koja upozorava korisnika prije uploada faj
 // Promijeni ovu liniju (trenutno je 8 MB):
 const maxFileSize = 8 * 1024 * 1024;
 
-// Na željenu veličinu (npr. 50 MB):
-const maxFileSize = 50 * 1024 * 1024;
+// Na željenu veličinu (npr. 150 MB):
+const maxFileSize = 150 * 1024 * 1024;
 ```
 
 ## Testiranje
