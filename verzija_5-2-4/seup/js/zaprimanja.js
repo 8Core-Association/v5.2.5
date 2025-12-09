@@ -203,6 +203,7 @@
                 submitZaprimanjeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Zaprimanje...';
 
                 const formData = new FormData(form);
+                formData.append('action', 'create_zaprimanje');
                 console.log('FormData created');
 
                 fetch(window.location.href, {

@@ -183,6 +183,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         Zaprimanje_Helper::exportExcelFiltered($db, $filters);
         exit;
     }
+
+    if ($action === 'create_zaprimanje') {
+        header('Content-Type: application/json');
+        ob_end_clean();
+
+        // Get form parameters
+        $ID_predmeta = GETPOST('ID_predmeta', 'int');
+        $tip_dokumenta = GETPOST('tip_dokumenta', 'alpha');
+        $fk_posiljatelj = GETPOST('fk_posiljatelj', 'int');
+        $posiljatelj_naziv = GETPOST('posiljatelj_naziv', 'alpha');
+        $posiljatelj_broj = GETPOST('posiljatelj_broj', 'alpha');
+        $datum_zaprimanja = GETPOST('datum_zaprimanja', 'alpha');
+        $nacin_zaprimanja = GETPOST('nacin_zaprimanja', 'alpha');
+        $napomena = GETPOST('napomena', 'alpha');
+        $fk_ecm_file = GETPOST('fk_ecm_file', 'int');
+        $fk_akt_za_prilog = GETPOST('fk_akt_za_prilog', 'int');
+
+        // Validate required fields
+        if (!$ID_predmeta || !$datum_zaprimanja || !$nacin_zaprimanja) {
+            echo json_encode(['success' => false, 'error' => 'Nedostaju obavezna polja']);
+            exit;
+        }
+
+        // Create zaprimanje
+        $result = Zaprimanje_Helper::registrirajZaprimanje(
+            $db,
+            $fk_ecm_file,
+            $ID_predmeta,
+            $tip_dokumenta ?: 'nedodjeljeno',
+            $fk_posiljatelj,
+            $datum_zaprimanja,
+            $nacin_zaprimanja,
+            $user->id,
+            null,
+            $napomena,
+            $posiljatelj_naziv,
+            $posiljatelj_broj,
+            $fk_akt_za_prilog
+        );
+
+        if ($result > 0) {
+            echo json_encode(['success' => true, 'id' => $result]);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Greška pri kreiranju zaprimanja']);
+        }
+        exit;
+    }
 }
 
 // Fetch sorting parameters
