@@ -364,10 +364,10 @@ CREATE TABLE IF NOT EXISTS llx_a_otprema (
 
 
 -- =============================================================================
--- TABLE: a_zaprimanja
+-- TABLE: a_zaprimanje
 -- Purpose: Incoming document reception tracking
 -- =============================================================================
-CREATE TABLE IF NOT EXISTS llx_a_zaprimanja (
+CREATE TABLE IF NOT EXISTS llx_a_zaprimanje (
     ID_zaprimanja int(11) NOT NULL AUTO_INCREMENT,
 
     -- Link to subject/case
@@ -411,20 +411,7 @@ CREATE TABLE IF NOT EXISTS llx_a_zaprimanja (
     KEY idx_datum (datum_zaprimanja),
     KEY fk_user (fk_user_creat),
     KEY fk_potvrda (fk_potvrda_ecm_file),
-    KEY fk_akt (fk_akt_za_prilog),
-
-    CONSTRAINT fk_zaprimanja_predmet FOREIGN KEY (ID_predmeta)
-        REFERENCES llx_a_predmet(ID_predmeta) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_zaprimanja_ecm FOREIGN KEY (fk_ecm_file)
-        REFERENCES llx_ecm_files(rowid) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_zaprimanja_posiljatelj FOREIGN KEY (fk_posiljatelj)
-        REFERENCES llx_societe(rowid) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT fk_zaprimanja_user FOREIGN KEY (fk_user_creat)
-        REFERENCES llx_user(rowid) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT fk_zaprimanja_potvrda FOREIGN KEY (fk_potvrda_ecm_file)
-        REFERENCES llx_ecm_files(rowid) ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT fk_zaprimanja_akt FOREIGN KEY (fk_akt_za_prilog)
-        REFERENCES llx_a_akti(ID_akta) ON DELETE SET NULL ON UPDATE CASCADE
+    KEY fk_akt (fk_akt_za_prilog)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Incoming document reception tracking';
 
 

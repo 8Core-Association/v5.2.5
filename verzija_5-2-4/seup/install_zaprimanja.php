@@ -19,12 +19,12 @@ echo "   (To će automatski pokrenuti sve SQL skripte iz /seup/sql/)\n\n";
 
 echo "OPCIJA 2 - RUČNA INSTALACIJA:\n";
 echo "1. Pokreni SQL skriptu na MariaDB bazi:\n";
-echo "   mysql -u [korisnik] -p [baza] < " . __DIR__ . "/sql/a_zaprimanja.sql\n\n";
+echo "   mysql -u [korisnik] -p [baza] < " . __DIR__ . "/sql/llx_a_zaprimanje.sql\n\n";
 
 echo "2. ALTERNATIVNO - kopiraj i izvrši SQL direktno u phpMyAdmin:\n\n";
 
 // Pročitaj i prikaži SQL
-$sql_file = __DIR__ . '/sql/a_zaprimanja.sql';
+$sql_file = __DIR__ . '/sql/llx_a_zaprimanje.sql';
 if (file_exists($sql_file)) {
     echo "--- SQL KOD ZA IZVRŠITI ---\n\n";
     $sql = file_get_contents($sql_file);
@@ -40,7 +40,7 @@ echo "  DESCRIBE llx_a_zaprimanje;\n\n";
 echo "=== DATOTEKE SUSTAVA ===\n\n";
 
 $files = [
-    'SQL migracija' => 'sql/a_zaprimanja.sql',
+    'SQL migracija' => 'sql/llx_a_zaprimanje.sql',
     'Helper klasa' => 'class/zaprimanje_helper.class.php',
     'Stranica' => 'pages/zaprimanja.php',
     'JavaScript' => 'js/zaprimanja.js',
