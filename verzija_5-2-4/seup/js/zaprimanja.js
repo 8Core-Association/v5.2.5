@@ -247,6 +247,35 @@
                     return;
                 }
 
+                const dokumentFile = form.querySelector('input[name="dokument_file"]');
+                const potvrdaFile = form.querySelector('input[name="potvrda_file"]');
+
+                const maxFileSize = 8 * 1024 * 1024;
+
+                if (dokumentFile && dokumentFile.files && dokumentFile.files[0]) {
+                    const fileSize = dokumentFile.files[0].size;
+                    const fileSizeMB = (fileSize / (1024 * 1024)).toFixed(2);
+
+                    console.log('Dokument file size:', fileSizeMB + ' MB');
+
+                    if (fileSize > maxFileSize) {
+                        showToast(`Dokument je prevelik (${fileSizeMB} MB). Maksimalna veličina je 8 MB. Molimo povećajte PHP limite ili smanjite veličinu fajla.`, 'error');
+                        return;
+                    }
+                }
+
+                if (potvrdaFile && potvrdaFile.files && potvrdaFile.files[0]) {
+                    const fileSize = potvrdaFile.files[0].size;
+                    const fileSizeMB = (fileSize / (1024 * 1024)).toFixed(2);
+
+                    console.log('Potvrda file size:', fileSizeMB + ' MB');
+
+                    if (fileSize > maxFileSize) {
+                        showToast(`Potvrda je prevelika (${fileSizeMB} MB). Maksimalna veličina je 8 MB. Molimo povećajte PHP limite ili smanjite veličinu fajla.`, 'error');
+                        return;
+                    }
+                }
+
                 console.log('Form found, submitting...');
 
                 const originalText = submitZaprimanjeBtn.innerHTML;
@@ -273,7 +302,8 @@
                         data = JSON.parse(text);
                     } catch (e) {
                         console.error('JSON parse error:', e);
-                        throw new Error('Server vratio neispravan odgovor');
+                        console.error('Response was:', text);
+                        throw new Error('Server vratio neispravan odgovor. Provjerite veličinu fajla ili PHP limite.');
                     }
 
                     if (data.success) {
