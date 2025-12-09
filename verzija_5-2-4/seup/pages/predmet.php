@@ -19,7 +19,7 @@ define('NOCSRFCHECK', 1);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $ajax_action = $_POST['action'];
-    if (in_array($ajax_action, ['upload_akt', 'upload_prilog', 'delete_document', 'generate_omot', 'preview_omot'])) {
+    if (in_array($ajax_action, ['upload_akt', 'upload_prilog', 'delete_document', 'generate_omot', 'preview_omot', 'registriraj_zaprimanje', 'search_posiljatelji'])) {
         define('AJAX_REQUEST', 1);
         define('NOTOKENRENEWAL', 1);
     }
