@@ -5,7 +5,7 @@
 -- od trećih osoba (ustanova, pošiljatelja)
 -- =====================================================
 
-CREATE TABLE IF NOT EXISTS llx_a_zaprimanja (
+CREATE TABLE IF NOT EXISTS llx_a_zaprimanje (
   ID_zaprimanja INT(11) NOT NULL AUTO_INCREMENT,
 
   -- Veza s predmetom

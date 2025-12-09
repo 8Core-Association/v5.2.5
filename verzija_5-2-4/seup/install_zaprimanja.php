@@ -1,7 +1,7 @@
 <?php
 /**
  * SEUP - Instalacija tablice Zaprimanja
- * Ova stranica kreira tablicu llx_a_zaprimanja
+ * Ova stranica kreira tablicu llx_a_zaprimanje
  */
 
 echo "<h1>SEUP - Instalacija Tablice Zaprimanja</h1>";
@@ -9,7 +9,7 @@ echo "<pre>";
 
 // Prikaži upute za pokretanje
 echo "=== UPUTE ZA INSTALACIJU ===\n\n";
-echo "Za instalaciju tablice llx_a_zaprimanja imate 2 opcije:\n\n";
+echo "Za instalaciju tablice llx_a_zaprimanje imate 2 opcije:\n\n";
 
 echo "OPCIJA 1 - AUTOMATSKA INSTALACIJA (PREPORUČENO):\n";
 echo "1. Idi u Dolibarr → Setup → Modules\n";
@@ -34,8 +34,8 @@ if (file_exists($sql_file)) {
 
 echo "=== PROVJERA ===\n\n";
 echo "Nakon instalacije, provjeri da li tablica postoji:\n";
-echo "  SHOW TABLES LIKE 'llx_a_zaprimanja';\n";
-echo "  DESCRIBE llx_a_zaprimanja;\n\n";
+echo "  SHOW TABLES LIKE 'llx_a_zaprimanje';\n";
+echo "  DESCRIBE llx_a_zaprimanje;\n\n";
 
 echo "=== DATOTEKE SUSTAVA ===\n\n";
 
@@ -56,7 +56,7 @@ foreach ($files as $name => $path) {
 
 echo "\n=== STRUKTURA TABLICE ===\n\n";
 
-echo "llx_a_zaprimanja:\n";
+echo "llx_a_zaprimanje:\n";
 echo "  - ID_zaprimanja (PK, AUTO_INCREMENT)\n";
 echo "  - ID_predmeta (FK → llx_a_predmet)\n";
 echo "  - fk_ecm_file (FK → llx_ecm_files)\n";
@@ -79,7 +79,7 @@ echo "<h2>Sljedeći koraci:</h2>";
 echo "<ol>";
 echo "<li><strong>Preporučeno:</strong> Deaktiviraj i ponovno aktiviraj SEUP modul</li>";
 echo "<li>Ili: Kopiraj SQL kod iznad i izvrši ga u MariaDB bazi</li>";
-echo "<li>Provjeri da li tablica llx_a_zaprimanja postoji</li>";
+echo "<li>Provjeri da li tablica llx_a_zaprimanje postoji</li>";
 echo "<li>Pristupite stranici /custom/seup/pages/zaprimanja.php</li>";
 echo "</ol>";
 ?>
