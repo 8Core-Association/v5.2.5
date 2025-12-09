@@ -250,6 +250,11 @@
                 const dokumentFile = form.querySelector('input[name="dokument_file"]');
                 const potvrdaFile = form.querySelector('input[name="potvrda_file"]');
 
+                if (!dokumentFile || !dokumentFile.files || !dokumentFile.files[0]) {
+                    showToast('Molimo odaberite dokument za upload!', 'error');
+                    return;
+                }
+
                 const maxFileSize = 8 * 1024 * 1024;
 
                 if (dokumentFile && dokumentFile.files && dokumentFile.files[0]) {
