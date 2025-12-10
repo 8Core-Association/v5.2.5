@@ -722,7 +722,7 @@ Dokumentacija ažurirana: README, struktura, changelog.
 
 ---
 
-## 5.2.5 – Performance Optimization & Limits Adjustment
+## 5.2.5 – Performance Optimization & Database Improvements
 
 **Datum:** 10.12.2025
 
@@ -732,19 +732,32 @@ Dokumentacija ažurirana: README, struktura, changelog.
 - 🚀 **Enhanced Capacity** - Bolja podrška za projekte s većim brojem dokumenata
 
 ### Zaprimanja Module Updates
-- 📄 **zaprimanja.php** - Ažuriran limit za prikaz povezanih dokumenata
-  - MAX_RELATED_DOCS povećan na 150
-  - Optimiziran prikaz velikih listi zaprimanja
-  - Poboljšana skalabilnost
+- 📄 **Modal "Zaprimanja"** - Popravljen modal u tabu zaprimanje
+  - Ispravljen prikaz i funkcionalnost modala
+  - Poboljšano korisničko iskustvo
+- 📊 **Tablica a_zaprimanje**
+  - Popravljena struktura tablice
+  - Automatizirano kreiranje tablice implementirano
+  - Pouzdanija inicijalizacija baze podataka
+- 🧹 **Code Cleanup** - Pročiščen i uklonjen višak .js fajlova
+  - Optimiziran kod
+  - Uklonjena redundantna skripta
+
+### Database Improvements
+- 🗄️ **Automated Table Creation** - llx_a_zaprimanje tablica se automatski kreira
+- 🔧 **Install Scripts** - Ažurirani install_zaprimanje.php i migration scripts
+- ✅ **Reliability** - Pouzdanija instalacija i migracija podataka
 
 ### Technical Details
 - 🔧 **Constant Updates** - MAX_RELATED_DOCS = 150 (prije: 8)
 - 📈 **Scalability** - Sistem može prikazati 18.75x više dokumenata
 - 💾 **Memory Efficient** - Optimiziran za rad s većim setovima podataka
+- 🏗️ **Database Schema** - Automatizirano upravljanje a_zaprimanje tablicom
 
 ### User Impact
 - 📋 **More Documents Visible** - Korisnici mogu vidjeti više povezanih dokumenata
 - ⚡ **No Performance Loss** - Povećan limit bez usporavanja sustava
 - 🎯 **Better Overview** - Kompletniji pregled svih zaprimanja
+- 🚀 **Easier Installation** - Automatsko kreiranje potrebnih tablica
 
 ---
