@@ -721,3 +721,30 @@ Dokumentacija ažurirana: README, struktura, changelog.
 - ✨ **Smoother Experience** - Ugodniji user experience
 
 ---
+
+## 5.2.5 – Performance Optimization & Limits Adjustment
+
+**Datum:** 10.12.2025
+
+### Performance Improvements
+- 📊 **Increased Related Docs Limit** - MAX_RELATED_DOCS povećan sa 120 na 150
+- ⚡ **Better Data Handling** - Omogućeno prikaz više povezanih dokumenata odjednom
+- 🚀 **Enhanced Capacity** - Bolja podrška za projekte s većim brojem dokumenata
+
+### Zaprimanja Module Updates
+- 📄 **zaprimanja.php** - Ažuriran limit za prikaz povezanih dokumenata
+  - MAX_RELATED_DOCS povećan na 150
+  - Optimiziran prikaz velikih listi zaprimanja
+  - Poboljšana skalabilnost
+
+### Technical Details
+- 🔧 **Constant Updates** - MAX_RELATED_DOCS = 150 (prije: 120)
+- 📈 **Scalability** - Sistem može prikazati 25% više dokumenata
+- 💾 **Memory Efficient** - Optimiziran za rad s većim setovima podataka
+
+### User Impact
+- 📋 **More Documents Visible** - Korisnici mogu vidjeti više povezanih dokumenata
+- ⚡ **No Performance Loss** - Povećan limit bez usporavanja sustava
+- 🎯 **Better Overview** - Kompletniji pregled svih zaprimanja
+
+---
