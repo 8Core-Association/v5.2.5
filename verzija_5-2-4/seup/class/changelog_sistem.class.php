@@ -34,14 +34,14 @@ class Changelog_Sistem
      *
      * @var string
      */
-    const VERSION = '5.2.4';
+    const VERSION = '5.2.5';
 
     /**
      * Datum izdanja trenutne verzije (ISO format YYYY-MM-DD).
      *
      * @var string
      */
-    const RELEASE_DATE = '2025-12-05';
+    const RELEASE_DATE = '2025-12-10';
 
     /**
      * Dohvaća verziju formatiranu za footer.
