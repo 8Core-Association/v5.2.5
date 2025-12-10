@@ -727,7 +727,7 @@ Dokumentacija ažurirana: README, struktura, changelog.
 **Datum:** 10.12.2025
 
 ### Performance Improvements
-- 📊 **Increased Related Docs Limit** - MAX_RELATED_DOCS povećan sa 120 na 150
+- 📊 **Increased Related Docs Limit** - MAX_RELATED_DOCS povećan sa 8 na 150
 - ⚡ **Better Data Handling** - Omogućeno prikaz više povezanih dokumenata odjednom
 - 🚀 **Enhanced Capacity** - Bolja podrška za projekte s većim brojem dokumenata
 
@@ -738,8 +738,8 @@ Dokumentacija ažurirana: README, struktura, changelog.
   - Poboljšana skalabilnost
 
 ### Technical Details
-- 🔧 **Constant Updates** - MAX_RELATED_DOCS = 150 (prije: 120)
-- 📈 **Scalability** - Sistem može prikazati 25% više dokumenata
+- 🔧 **Constant Updates** - MAX_RELATED_DOCS = 150 (prije: 8)
+- 📈 **Scalability** - Sistem može prikazati 18.75x više dokumenata
 - 💾 **Memory Efficient** - Optimiziran za rad s većim setovima podataka
 
 ### User Impact
